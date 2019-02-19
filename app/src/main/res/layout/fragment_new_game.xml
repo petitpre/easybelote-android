@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="java.lang.Integer"/>
+        <variable
+                name="viewModel"
+                type="com.petitpre.easybelote.ui.NewGameViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            tools:context=".ui.NewGameFragment"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/game_background">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/close"
+                android:src="@drawable/close"
+                android:layout_marginTop="32dp"
+                android:padding="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="32dp"
+                android:layout_marginTop="250dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/tableLayout">
+
+            <TableRow>
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="2">
+                    <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TitleView"
+                            android:text="@string/you"/>
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/game_player_one"
+                            style="@style/PlayerEditName"
+                            android:text="@={viewModel.players[0]}"/>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+                    <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TitleView"
+                            android:text="@string/partner"/>
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/game_player_two"
+                            style="@style/PlayerEditName"
+                            android:text="@={viewModel.players[2]}"/>
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="20dp">
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="2">
+                    <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TitleView"
+                            android:text="@string/left"/>
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/game_player_three"
+                            style="@style/PlayerEditName"
+                            android:text="@={viewModel.players[1]}"/>
+                </LinearLayout>
+
+                <LinearLayout android:orientation="vertical"
+                              android:layout_weight="1">
+                    <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TitleView"
+                            android:text="@string/right"/>
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/game_player_four"
+                            style="@style/PlayerEditName"
+                            android:text="@={viewModel.players[3]}"/>
+                </LinearLayout>
+            </TableRow>
+
+        </TableLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TitleView"
+                android:id="@+id/appCompatTextView"
+                android:text="@string/max_score"
+                android:imeOptions="actionDone"
+
+                android:layout_marginStart="32dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="32dp"
+
+                app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+                app:layout_constraintStart_toStartOf="parent"
+        />
+
+        <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/game_score"
+                android:inputType="number"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_marginEnd="32dp"
+                android:text="@={viewModel.maxScore }"
+                app:layout_constraintTop_toTopOf="@+id/appCompatTextView"
+                app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/appCompatTextView"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TitleView"
+                android:text="@string/advert"
+                android:layout_height="0dp"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/appCompatTextView3"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/game_advert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:checked="@={viewModel.advert}"
+                app:layout_constraintTop_toTopOf="@+id/appCompatTextView3"
+                app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView3"
+                app:layout_constraintStart_toEndOf="@+id/appCompatTextView3"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/start_game"
+                android:textColor="@color/strawberry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:drawableEnd="@drawable/stripe"
+                android:drawableTint="@color/strawberry"
+                android:drawablePadding="32dp"
+                android:text="@string/start_game"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView3"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

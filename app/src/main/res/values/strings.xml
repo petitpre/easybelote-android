@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">EasyBelote</string>
+
+    <string name="new_game">Nouvelle partie</string>
+    <string name="start_fragment">Demarrage</string>
+    <string name="playing">Jeux en cours</string>
+
+    <string name="you">Vous</string>
+    <string name="partner">Votre partenaire</string>
+    <string name="left">à gauche</string>
+    <string name="right">à droite</string>
+    <string name="name_placeholder">Entrez un prénom</string>
+    <string name="max_score">Nombre de points</string>
+    <string name="advert">Annonces</string>
+    <string name="start_game">Démarrer la partie</string>
+
+    <string name="whos_taking">Sélectionnez le joueur qui prend:</string>
+
+</resources>

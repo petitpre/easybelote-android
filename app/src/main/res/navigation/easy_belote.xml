@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            app:startDestination="@+id/start_fragment">
+
+    <fragment
+            android:id="@+id/start_fragment"
+            android:name="com.petitpre.easybelote.ui.StartFragment"
+            android:label="@string/start_fragment"
+            tools:layout="@layout/fragment_start">
+
+        <action
+                android:id="@+id/action_start_game"
+                app:destination="@id/newgame_fragment"
+                app:enterAnim="@animator/fade_in"
+                app:exitAnim="@animator/fade_out"
+                app:popEnterAnim="@animator/fade_in"
+                app:popExitAnim="@animator/fade_out"
+                app:popUpTo="@+id/start_fragment"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/newgame_fragment"
+            android:name="com.petitpre.easybelote.ui.NewGameFragment"
+            android:label="@string/new_game"
+            tools:layout="@layout/fragment_new_game">
+        <action android:id="@+id/action_newgame_fragment_to_playing_fragment"
+                app:destination="@id/playing_fragment"
+
+                app:enterAnim="@animator/fade_in"
+                app:exitAnim="@animator/fade_out"
+                app:popEnterAnim="@animator/fade_in"
+                app:popExitAnim="@animator/fade_out"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/playing_fragment"
+            android:name="com.petitpre.easybelote.ui.PlayingFragment"
+            android:label="@string/playing"
+            tools:layout="@layout/fragment_playing">
+        <argument android:name="gameId"
+                  app:argType="long" />
+    </fragment>
+
+</navigation>

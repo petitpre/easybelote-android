@@ -1,0 +1,52 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowBackground">@drawable/splash</item>
+
+        <item name="imageButtonStyle">@style/ImageButton</item>
+        <item name="buttonStyle">@style/Button</item>
+    </style>
+
+    <style name="ImageButton" parent="Base.Widget.AppCompat.ImageButton">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="Button" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/button_text</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+
+    <style name="TitleView"  >
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="PlayerEditName" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:hint">@string/name_placeholder</item>
+        <item name="android:textColor">@color/greyishBrown</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+    <style name="PlayerName" >
+        <item name="android:textColor">@color/greyishBrown</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+
+</resources>
