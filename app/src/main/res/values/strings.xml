@@ -16,4 +16,13 @@
 
     <string name="whos_taking">Sélectionnez le joueur qui prend:</string>
 
+    <string name="save">Enregistrer</string>
+
+    <string name="tierce">tierce</string>
+    <string name="quarte">quarte</string>
+    <string name="quinte">quinte</string>
+    <string name="carre">carre</string>
+    <string name="carre_of_nine">carre of nine</string>
+    <string name="carre_of_aces">carre of aces</string>
+
 </resources>

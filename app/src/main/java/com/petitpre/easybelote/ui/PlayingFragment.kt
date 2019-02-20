@@ -24,7 +24,10 @@ class PlayingFragment : Fragment() {
         val gameId = navArgs<PlayingFragmentArgs>().value.gameId
 
         val playingViewModel: PlayingViewModel = ViewModelProviders
-            .of(this, PlayingViewModelFactory(requireContext().easyBelote.gameRepository, gameId))
+            .of(
+                this,
+                ViewModelFactory({ PlayingViewModel(requireContext().easyBelote.gameRepository, gameId) })
+            )
             .get(PlayingViewModel::class.java)
 
         val binding = DataBindingUtil.inflate<FragmentPlayingBinding>(
@@ -35,6 +38,14 @@ class PlayingFragment : Fragment() {
 
             close.setOnClickListener {
                 it.findNavController().navigateUp()
+            }
+            playground.setOnClickListener {
+                val direction = PlayingFragmentDirections.actionPlayingFragmentToScoreFragment(gameId)
+                it.findNavController().navigate(direction)
+            }
+            history.setOnClickListener {
+                val direction = PlayingFragmentDirections.actionPlayingFragmentToHistoryFragment(gameId)
+                it.findNavController().navigate(direction)
             }
         }
 

@@ -8,4 +8,6 @@
     <color name="black">#000000</color>
     <color name="greyishBrown">#4a4a4a</color>
     <color name="strawberry">#ff293e</color>
+
+    <color name="lightGrey">#aaaaaa</color>
 </resources>

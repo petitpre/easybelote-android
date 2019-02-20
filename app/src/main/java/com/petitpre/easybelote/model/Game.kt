@@ -1,7 +1,7 @@
 package com.petitpre.easybelote.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
+import com.petitpre.easybelote.R
 import java.util.*
 
 @Entity
@@ -16,15 +16,43 @@ data class Game(
     var player_four: String? = null,
 
     val max_score: Int = 1001,
-    val advert: Boolean = false
+    val declarations: Boolean = false,
+
+    var bidder: Int = 0
 )
 
-// 1 round = 162 points
-// si bidder score > 81 -> bidder score += score
-//                         non bidder score += 162-score
+@Entity
+data class Round(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0L,
+    val gameId: Long,
+    var myScore: Long,
+    var otherScore: Long,
 
-// si bidder score == 81 -> bidder score += 0
-//                          non bidder score += 81
+    var myDeclarations: List<Declaration> = emptyList(),
+    var otherDeclarations: List<Declaration> = emptyList()
+)
 
-// si bidder score < 81 -> bidder score += 0
-//                         non bidder score += 162
+data class GameWithRound(
+    @Embedded
+    val game: Game,
+    @Relation(parentColumn = "id", entityColumn = "gameId", entity = Round::class)
+    val rounds: List<Round>
+) {
+    fun getMyScore(): Long {
+        return rounds.map { it.myScore }.sum()
+    }
+
+    fun getOtherScore(): Long {
+        return rounds.map { it.otherScore }.sum()
+    }
+}
+
+enum class Declaration {
+    tierce,
+    quarte,
+    quinte,
+    carre,
+    carre_of_nine,
+    carre_of_aces
+}

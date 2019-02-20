@@ -27,8 +27,4 @@ class StartFragment : Fragment() {
     }
 
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = StartFragment()
-    }
 }

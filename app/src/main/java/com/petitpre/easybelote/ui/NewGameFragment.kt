@@ -22,7 +22,10 @@ class NewGameFragment : Fragment() {
     ): View? {
 
         val gameViewModel: NewGameViewModel = ViewModelProviders
-            .of(this, NewGameViewModelFactory(requireContext().easyBelote.gameRepository))
+            .of(
+                this,
+                ViewModelFactory({ NewGameViewModel(resources, requireContext().easyBelote.gameRepository) })
+            )
             .get(NewGameViewModel::class.java)
 
         val binding = DataBindingUtil.inflate<FragmentNewGameBinding>(
@@ -34,8 +37,11 @@ class NewGameFragment : Fragment() {
             close.setOnClickListener {
                 it.findNavController().navigateUp()
             }
-            startGame.setOnClickListener {
-                gameViewModel.startGame(it.findNavController())
+            startGame.setOnClickListener { view ->
+                gameViewModel.startGame() { id ->
+                    val direction = NewGameFragmentDirections.actionNewgameFragmentToPlayingFragment(id)
+                    view.findNavController().navigate(direction)
+                }
             }
         }
 

@@ -1,6 +1,9 @@
 package com.petitpre.easybelote.utils
 
 import androidx.room.TypeConverter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.petitpre.easybelote.model.Declaration
 import java.util.*
 
 class Converters {
@@ -13,4 +16,21 @@ class Converters {
     fun dateToTimestamp(date: Date?): Long? {
         return date?.time
     }
+
+    val gson = Gson()
+
+    @TypeConverter
+    fun stringToSomeObjectList(data: String?): List<Declaration> {
+        if (data == null) {
+            return Collections.emptyList()
+        }
+        return gson.fromJson(data, genericType<List<Declaration>>())
+    }
+
+    @TypeConverter
+    fun someObjectListToString(someObjects: List<Declaration>): String {
+        return gson.toJson(someObjects)
+    }
 }
+
+inline fun <reified T> genericType() = object : TypeToken<T>() {}.type
