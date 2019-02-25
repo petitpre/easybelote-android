@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/white"/>
-    <item android:drawable="@drawable/background" android:top="100dp"/>
+    <item android:drawable="@drawable/background" android:gravity="bottom"/>
     <item android:drawable="@drawable/card" android:gravity="center"/>
     <item android:drawable="@drawable/easy_belote" android:gravity="center"/>
 </layer-list>

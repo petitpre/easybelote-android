@@ -36,7 +36,6 @@ abstract class GameViewModel(
 ) : CoroutineViewModel() {
 
     val game: LiveData<GameWithRound>
-    val players: Array<LiveData<String>>
 
     val bidder: LiveData<Int>
     val myScore: LiveData<Long>
@@ -47,12 +46,6 @@ abstract class GameViewModel(
         game = runBlocking {
             gameRepository.getGame(gameId)
         }
-        players = arrayOf(
-            Transformations.map(game, { it.game.player_one ?: "" }),
-            Transformations.map(game, { it.game.player_two ?: "" }),
-            Transformations.map(game, { it.game.player_three ?: "" }),
-            Transformations.map(game, { it.game.player_four ?: "" })
-        )
 
         bidder = Transformations.map(game, { it.game.bidder })
 

@@ -8,7 +8,6 @@
     <fragment
             android:id="@+id/start_fragment"
             android:name="com.petitpre.easybelote.ui.StartFragment"
-            android:label="@string/start_fragment"
             tools:layout="@layout/fragment_start">
 
         <action
@@ -24,7 +23,6 @@
     <fragment
             android:id="@+id/newgame_fragment"
             android:name="com.petitpre.easybelote.ui.NewGameFragment"
-            android:label="@string/new_game"
             tools:layout="@layout/fragment_new_game">
         <action android:id="@+id/action_newgame_fragment_to_playing_fragment"
                 app:destination="@id/playing_fragment"
@@ -38,7 +36,6 @@
     <fragment
             android:id="@+id/playing_fragment"
             android:name="com.petitpre.easybelote.ui.PlayingFragment"
-            android:label="@string/playing"
             tools:layout="@layout/fragment_playing">
         <argument android:name="gameId"
                   app:argType="long"/>
@@ -53,7 +50,6 @@
 
     <fragment android:id="@+id/scoreFragment"
               android:name="com.petitpre.easybelote.ui.ScoreFragment"
-              android:label="ScoreFragment"
               tools:layout="@layout/fragment_score">
         <argument android:name="gameId"
                   app:argType="long"/>

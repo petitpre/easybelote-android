@@ -1,13 +1,11 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
-        <item name="android:windowBackground">@drawable/splash</item>
 
         <item name="imageButtonStyle">@style/ImageButton</item>
         <item name="buttonStyle">@style/Button</item>
@@ -33,7 +31,7 @@
     </style>
 
     <style name="PlayerEditName" parent="Base.Widget.AppCompat.EditText">
-        <item name="android:hint">@string/name_placeholder</item>
+        <item name="android:hint">@string/new_game_players_placeholder</item>
         <item name="android:textColor">@color/greyishBrown</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -48,19 +46,5 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
-
-    <style name="DeclarationTag">
-        <item name="android:background">@drawable/rounded_background</item>
-        <item name="android:backgroundTint">@color/declaration_background</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:paddingTop">3dp</item>
-        <item name="android:paddingBottom">3dp</item>
-        <item name="android:paddingStart">10dp</item>
-        <item name="android:paddingEnd">10dp</item>
-        <item name="android:layout_margin">2dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:minHeight">21dp</item>
-    </style>
 
 </resources>

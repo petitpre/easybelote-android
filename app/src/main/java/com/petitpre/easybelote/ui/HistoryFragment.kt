@@ -73,7 +73,7 @@ class ScoreListAdapter(val myScore: Boolean) : ListAdapter<Round, ScoreListAdapt
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val round = getItem(position)
         holder.apply {
-            bind(if (myScore) round.myScore else round.otherScore)
+            bind(if (myScore) round.team1.score else round.team2.score)
         }
     }
 

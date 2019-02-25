@@ -44,7 +44,7 @@
                         android:layout_weight="2">
                     <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TitleView"
-                            android:text="@string/you"/>
+                            android:text="@string/new_game_players_you"/>
                     <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/game_player_one"
                             style="@style/PlayerEditName"
@@ -56,7 +56,7 @@
                         android:layout_weight="1">
                     <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TitleView"
-                            android:text="@string/partner"/>
+                            android:text="@string/new_game_players_your_partner"/>
                     <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/game_player_two"
                             style="@style/PlayerEditName"
@@ -71,7 +71,7 @@
                         android:layout_weight="2">
                     <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TitleView"
-                            android:text="@string/left"/>
+                            android:text="@string/new_game_players_on_left"/>
                     <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/game_player_three"
                             style="@style/PlayerEditName"
@@ -82,7 +82,7 @@
                               android:layout_weight="1">
                     <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TitleView"
-                            android:text="@string/right"/>
+                            android:text="@string/new_game_players_on_right"/>
                     <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/game_player_four"
                             style="@style/PlayerEditName"
@@ -95,7 +95,7 @@
         <androidx.appcompat.widget.AppCompatTextView
                 style="@style/TitleView"
                 android:id="@+id/appCompatTextView"
-                android:text="@string/max_score"
+                android:text="@string/new_game_nb_points"
                 android:imeOptions="actionDone"
 
                 android:layout_marginStart="32dp"
@@ -120,7 +120,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
                 style="@style/TitleView"
-                android:text="@string/advert"
+                android:text="@string/new_game_declarations"
                 android:layout_height="0dp"
                 android:layout_width="wrap_content"
                 android:layout_marginStart="32dp"
@@ -130,11 +130,11 @@
                 android:id="@+id/appCompatTextView3"/>
 
         <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/game_advert"
+                android:id="@+id/game_declarations"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
-                android:checked="@={viewModel.advert}"
+                android:checked="@={viewModel.declarations}"
                 app:layout_constraintTop_toTopOf="@+id/appCompatTextView3"
                 app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView3"
                 app:layout_constraintStart_toEndOf="@+id/appCompatTextView3"
@@ -149,7 +149,7 @@
                 android:drawableEnd="@drawable/stripe"
                 android:drawableTint="@color/strawberry"
                 android:drawablePadding="32dp"
-                android:text="@string/start_game"
+                android:text="@string/new_game_start_game"
 
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

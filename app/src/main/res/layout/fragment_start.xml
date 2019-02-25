@@ -5,7 +5,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.StartFragment">
+        tools:context=".ui.StartFragment"
+        android:background="@drawable/start_background">
 
     <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/reset_game"
@@ -21,7 +22,7 @@
     <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/start_game"
             android:layout_width="wrap_content"
-            android:text="@string/new_game"
+            android:text="@string/home_new_game"
             android:layout_height="wrap_content"
             android:drawablePadding="32dp"
             android:drawableEnd="@drawable/stripe"

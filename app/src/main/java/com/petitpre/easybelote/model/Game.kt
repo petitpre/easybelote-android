@@ -10,10 +10,10 @@ data class Game(
     val id: Long = 0L,
     val date: Date = Date(),
 
-    var player_one: String? = null,
-    var player_two: String? = null,
-    var player_three: String? = null,
-    var player_four: String? = null,
+    @Embedded(prefix = "team_one_")
+    var team1: Team = Team(),
+    @Embedded(prefix = "team_two_")
+    var team2: Team = Team(),
 
     val max_score: Int = 1001,
     val declarations: Boolean = false,
@@ -21,16 +21,28 @@ data class Game(
     var bidder: Int = 0
 )
 
+data class Team(
+    val player1: String? = null,
+    val player2: String? = null
+)
+
 @Entity
 data class Round(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
     val gameId: Long,
-    var myScore: Long,
-    var otherScore: Long,
 
-    var myDeclarations: List<Declaration> = emptyList(),
-    var otherDeclarations: List<Declaration> = emptyList()
+    @Embedded(prefix = "team_one_")
+    var team1: TeamScore,
+
+    @Embedded(prefix = "team_two_")
+    var team2: TeamScore
+
+)
+
+data class TeamScore(
+    var score: Long= 0,
+    var declarations: List<Declaration> = emptyList()
 )
 
 data class GameWithRound(
@@ -40,19 +52,21 @@ data class GameWithRound(
     val rounds: List<Round>
 ) {
     fun getMyScore(): Long {
-        return rounds.map { it.myScore }.sum()
+        return rounds.map { it.team1.score }.sum()
     }
 
     fun getOtherScore(): Long {
-        return rounds.map { it.otherScore }.sum()
+        return rounds.map { it.team2.score }.sum()
     }
 }
 
-enum class Declaration {
-    tierce,
-    quarte,
-    quinte,
-    carre,
-    carre_of_nine,
-    carre_of_aces
+enum class Declaration(val text: Int) {
+    belote(R.string.game_round_declaration_belote),
+    capot(R.string.game_round_declaration_capot),
+    tierce(R.string.game_round_declaration_tierce),
+    quarte(R.string.game_round_declaration_quarte),
+    quinte(R.string.game_round_declaration_quinte),
+    square(R.string.game_round_declaration_square),
+    carre_of_nine(R.string.game_round_declaration_squareNines),
+    carre_of_aces(R.string.game_round_declaration_squareNines)
 }

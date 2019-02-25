@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 import com.petitpre.easybelote.model.Declaration
 import com.petitpre.easybelote.model.GameRepository
 import com.petitpre.easybelote.model.Round
+import com.petitpre.easybelote.model.TeamScore
 import kotlinx.coroutines.*
 
 class ScoreViewModel(
@@ -12,32 +13,27 @@ class ScoreViewModel(
     gameId: Long
 ) : GameViewModel(gameRepository, gameId) {
 
-    val newround = MutableLiveData<Round>(Round(gameId = gameId, myScore = 0, otherScore = 0))
+    val newround = MutableLiveData<Round>(Round(gameId = gameId, team1 = TeamScore(), team2 = TeamScore()))
 
     val myScoreRound: LiveData<String>
     val otherScoreRound: LiveData<String>
 
     init {
-        myScoreRound = Transformations.map(newround, { it.myScore.toString() })
-        otherScoreRound = Transformations.map(newround, { it.myScore.toString() })
+        myScoreRound = Transformations.map(newround, { it.team1.score.toString() })
+        otherScoreRound = Transformations.map(newround, { it.team2.score.toString() })
     }
 
     fun addDeclaration(myTeam: Boolean, declaration: Declaration) {
+        val team = if (myTeam) newround.value!!.team1 else newround.value!!.team2
+        val otherTeam = if (myTeam) newround.value!!.team2 else newround.value!!.team1
+
         newround.value?.let { round ->
 
             when (declaration) {
-                Declaration.carre_of_aces -> {
-                    round.myScore = 252
-                    round.otherScore = 0
+                Declaration.belote -> {
+                    team.score = 252
+                    otherTeam.score = 0
                 }
-            }
-
-            if (myTeam) {
-                round.myDeclarations = listOf(declaration)
-                round.otherDeclarations = emptyList()
-            } else {
-                round.myDeclarations = emptyList()
-                round.otherDeclarations = listOf(declaration)
             }
 
             newround.value = round
@@ -59,10 +55,9 @@ class ScoreViewModel(
             game.value?.let { game ->
                 val round = Round(
                     gameId = game.game.id,
-                    myScore = myScoreRound.value?.toLong() ?: 0L,
-                    otherScore = otherScoreRound.value?.toLong() ?: 0L
+                    team1 = TeamScore(myScoreRound.value?.toLong() ?: 0L),
+                    team2 = TeamScore(otherScoreRound.value?.toLong() ?: 0L)
                 )
-
                 gameRepository.addRound(round)
             }
             controller.navigateUp()

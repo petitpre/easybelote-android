@@ -1,28 +1,24 @@
 <resources>
-    <string name="app_name">EasyBelote</string>
-
-    <string name="new_game">Nouvelle partie</string>
-    <string name="start_fragment">Demarrage</string>
-    <string name="playing">Jeux en cours</string>
-
-    <string name="you">Vous</string>
-    <string name="partner">Votre partenaire</string>
-    <string name="left">à gauche</string>
-    <string name="right">à droite</string>
-    <string name="name_placeholder">Entrez un prénom</string>
-    <string name="max_score">Nombre de points</string>
-    <string name="advert">Annonces</string>
-    <string name="start_game">Démarrer la partie</string>
-
-    <string name="whos_taking">Sélectionnez le joueur qui prend:</string>
-
-    <string name="save">Enregistrer</string>
-
-    <string name="tierce">tierce</string>
-    <string name="quarte">quarte</string>
-    <string name="quinte">quinte</string>
-    <string name="carre">carre</string>
-    <string name="carre_of_nine">carre of nine</string>
-    <string name="carre_of_aces">carre of aces</string>
-
+    <string translatable="false" name="app_name">EasyBelote</string>
+    <string name="home_new_game">New game</string>
+    <string name="new_game_players_you">You</string>
+    <string name="new_game_players_your_partner">Your Partner</string>
+    <string name="new_game_players_on_left">To your left</string>
+    <string name="new_game_players_on_right">To your right</string>
+    <string name="new_game_players_placeholder">Enter a name</string>
+    <string name="new_game_nb_points">Number of points</string>
+    <string name="new_game_nb_points_placeholder">1001</string>
+    <string name="new_game_declarations">Declarations</string>
+    <string name="new_game_start_game">Start game</string>
+    <string name="game_bidding">Who\'s bidding?</string>
+    <string name="game_round_save">Save</string>
+    <string name="game_round_enter_score">Score</string>
+    <string name="game_round_declaration_belote">Belote &amp; re</string>
+    <string name="game_round_declaration_capot">Capot</string>
+    <string name="game_round_declaration_tierce">Tierce</string>
+    <string name="game_round_declaration_quarte">Quarte</string>
+    <string name="game_round_declaration_quinte">Quinte</string>
+    <string name="game_round_declaration_square">Square</string>
+    <string name="game_round_declaration_squareNines">4 of nines</string>
+    <string name="game_round_declaration_squareJacks">4 of jacks</string>
 </resources>

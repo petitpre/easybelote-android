@@ -1,0 +1,23 @@
+<resources>
+    <string name="home_new_game">Nouvelle partie</string>
+    <string name="new_game_players_you">Vous</string>
+    <string name="new_game_players_your_partner">Votre partenaire</string>
+    <string name="new_game_players_on_left">À Gauche</string>
+    <string name="new_game_players_on_right">À Droite</string>
+    <string name="new_game_players_placeholder">Entrez un prénom</string>
+    <string name="new_game_nb_points">Nombre de points</string>
+    <string name="new_game_nb_points_placeholder">1001</string>
+    <string name="new_game_declarations">Annonces</string>
+    <string name="new_game_start_game">Démarrer</string>
+    <string name="game_bidding">Qui prend ?</string>
+    <string name="game_round_save">Enregistrer</string>
+    <string name="game_round_enter_score">Score</string>
+    <string name="game_round_declaration_belote">Belote &amp; re</string>
+    <string name="game_round_declaration_capot">Capot</string>
+    <string name="game_round_declaration_tierce">Tierce</string>
+    <string name="game_round_declaration_quarte">Cinquante</string>
+    <string name="game_round_declaration_quinte">Cent</string>
+    <string name="game_round_declaration_square">Carré</string>
+    <string name="game_round_declaration_squareNines">Carré de neuf</string>
+    <string name="game_round_declaration_squareJacks">Carré de valets</string>
+</resources>
