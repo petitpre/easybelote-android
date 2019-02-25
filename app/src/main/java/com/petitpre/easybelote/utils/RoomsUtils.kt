@@ -20,15 +20,15 @@ class Converters {
     val gson = Gson()
 
     @TypeConverter
-    fun stringToSomeObjectList(data: String?): List<Declaration> {
+    fun stringToSomeObjectList(data: String?): MutableSet<Declaration> {
         if (data == null) {
-            return Collections.emptyList()
+            return mutableSetOf()
         }
-        return gson.fromJson(data, genericType<List<Declaration>>())
+        return gson.fromJson(data, genericType<MutableSet<Declaration>>())
     }
 
     @TypeConverter
-    fun someObjectListToString(someObjects: List<Declaration>): String {
+    fun someObjectListToString(someObjects: Set<Declaration>): String {
         return gson.toJson(someObjects)
     }
 }

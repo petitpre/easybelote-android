@@ -2,10 +2,7 @@ package com.petitpre.easybelote.ui
 
 import androidx.lifecycle.*
 import androidx.navigation.NavController
-import com.petitpre.easybelote.model.Declaration
-import com.petitpre.easybelote.model.GameRepository
-import com.petitpre.easybelote.model.Round
-import com.petitpre.easybelote.model.TeamScore
+import com.petitpre.easybelote.model.*
 import kotlinx.coroutines.*
 
 class ScoreViewModel(
@@ -28,11 +25,16 @@ class ScoreViewModel(
         val otherTeam = if (myTeam) newround.value!!.team2 else newround.value!!.team1
 
         newround.value?.let { round ->
-
             when (declaration) {
-                Declaration.belote -> {
+                Declaration.capot -> {
                     team.score = 252
                     otherTeam.score = 0
+                    team.declarations.add(Declaration.capot)
+                    otherTeam.declarations.remove(Declaration.capot)
+                }
+                Declaration.belote -> {
+                    team.declarations.add(Declaration.belote)
+                    otherTeam.declarations.remove(Declaration.belote)
                 }
             }
 
@@ -40,7 +42,7 @@ class ScoreViewModel(
         }
     }
 
-    private fun getScore(takerScore: Int): Pair<Int, Int> {
+    private fun computeScore(takerScore: Int): Pair<Int, Int> {
         if (takerScore > 81) {
             return Pair<Int, Int>(takerScore, 162 - takerScore)
         } else if (takerScore == 81) {

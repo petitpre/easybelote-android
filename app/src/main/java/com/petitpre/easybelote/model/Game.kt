@@ -42,7 +42,7 @@ data class Round(
 
 data class TeamScore(
     var score: Long= 0,
-    var declarations: List<Declaration> = emptyList()
+    var declarations: MutableSet<Declaration> = mutableSetOf()
 )
 
 data class GameWithRound(

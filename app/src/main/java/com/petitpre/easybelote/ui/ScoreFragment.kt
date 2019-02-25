@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
@@ -43,7 +45,7 @@ class ScoreFragment : Fragment() {
             }
 
             Declaration.values().forEach { declaration ->
-               val chip = (inflater.inflate(R.layout.declaration, myDeclarations, false) as Chip).apply {
+                val chip = (inflater.inflate(R.layout.declaration, myDeclarations, false) as Chip).apply {
                     this.setText(declaration.text)
 
                     this.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -52,16 +54,30 @@ class ScoreFragment : Fragment() {
                 }
                 myDeclarations.addView(chip)
 
-
                 val otherchip = (inflater.inflate(R.layout.declaration, otherDeclarations, false) as Chip).apply {
                     this.setText(declaration.text)
-
+                    this.tag = declaration
                     this.setOnCheckedChangeListener { buttonView, isChecked ->
                         playingViewModel.addDeclaration(false, declaration)
                     }
                 }
                 otherDeclarations.addView(otherchip)
             }
+
+            playingViewModel.newround.observe(viewLifecycleOwner, Observer { round ->
+                myDeclarations.children.forEach { view ->
+                    if (view is Chip) {
+                        view.isChecked = round.team1.declarations.contains(view.tag)
+                    }
+                }
+                otherDeclarations.children.forEach { view ->
+                    if (view is Chip) {
+                        view.isChecked = round.team2.declarations.contains(view.tag)
+                    }
+                }
+            })
+
+
         }
         return binding.root
     }
