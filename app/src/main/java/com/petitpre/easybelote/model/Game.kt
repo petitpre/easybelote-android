@@ -52,15 +52,13 @@ data class TeamScore(
     val totalScore: Long
         get() {
             var total = score
-            if (declarations.contains(Declaration.belote)) total += 20
-
-            if (declarations.contains(Declaration.tierce)) total += 20
-            if (declarations.contains(Declaration.quarte)) total += 50
-            if (declarations.contains(Declaration.quinte)) total += 100
-            if (declarations.contains(Declaration.square)) total += 100
-            if (declarations.contains(Declaration.carre_of_nine)) total += 150
-            if (declarations.contains(Declaration.carre_of_jacks)) total += 200
-
+            if (declarations.contains(Declaration.Belote)) total += 20
+            if (declarations.contains(Declaration.Tierce)) total += 20
+            if (declarations.contains(Declaration.Quarte)) total += 50
+            if (declarations.contains(Declaration.Quinte)) total += 100
+            if (declarations.contains(Declaration.Square)) total += 100
+            if (declarations.contains(Declaration.CarreOfNine)) total += 150
+            if (declarations.contains(Declaration.CarreOfJacks)) total += 200
             return total
         }
 }
@@ -81,12 +79,12 @@ data class GameWithRound(
 }
 
 enum class Declaration(val text: Int) {
-    belote(R.string.game_round_declaration_belote),
-    capot(R.string.game_round_declaration_capot),
-    tierce(R.string.game_round_declaration_tierce),
-    quarte(R.string.game_round_declaration_quarte),
-    quinte(R.string.game_round_declaration_quinte),
-    square(R.string.game_round_declaration_square),
-    carre_of_nine(R.string.game_round_declaration_squareNines),
-    carre_of_jacks(R.string.game_round_declaration_squareJacks)
+    Belote(R.string.game_round_declaration_belote),
+    Capot(R.string.game_round_declaration_capot),
+    Tierce(R.string.game_round_declaration_tierce),
+    Quarte(R.string.game_round_declaration_quarte),
+    Quinte(R.string.game_round_declaration_quinte),
+    Square(R.string.game_round_declaration_square),
+    CarreOfNine(R.string.game_round_declaration_squareNines),
+    CarreOfJacks(R.string.game_round_declaration_squareJacks)
 }

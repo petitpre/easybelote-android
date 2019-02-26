@@ -4,6 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.petitpre.easybelote.model.Declaration
+import java.lang.reflect.Type
 import java.util.*
 
 class Converters {
@@ -17,7 +18,7 @@ class Converters {
         return date?.time
     }
 
-    val gson = Gson()
+    private val gson = Gson()
 
     @TypeConverter
     fun stringToSomeObjectList(data: String?): MutableSet<Declaration> {
@@ -33,4 +34,4 @@ class Converters {
     }
 }
 
-inline fun <reified T> genericType() = object : TypeToken<T>() {}.type
+inline fun <reified T> genericType(): Type = object : TypeToken<T>() {}.type

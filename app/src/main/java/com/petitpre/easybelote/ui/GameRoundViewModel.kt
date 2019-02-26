@@ -13,7 +13,7 @@ import timber.log.Timber
 class GameRoundViewModel(
     val gameRepository: GameRepository,
     val gameId: Long,
-    val roundId: Long
+    private val roundId: Long
 ) : AbstractGameViewModel(gameRepository, gameId) {
 
     val round: MutableLiveData<Round>
@@ -30,9 +30,9 @@ class GameRoundViewModel(
                 )
         })
 
-        bidder = Transformations.map(round, { it.bidder })
-        team1Score = Transformations.map(round, { it.team1.score.toString() })
-        team2Score = Transformations.map(round, { it.team2.score.toString() })
+        bidder = Transformations.map(round) { it.bidder }
+        team1Score = Transformations.map(round) { it.team1.score.toString() }
+        team2Score = Transformations.map(round) { it.team2.score.toString() }
     }
 
     fun setTeamScore(team1: Boolean, scoreStr: String) {
@@ -63,26 +63,26 @@ class GameRoundViewModel(
             val otherTeam = if (myTeam) r.team2 else r.team1
 
             when (declaration) {
-                Declaration.capot -> {
+                Declaration.Capot -> {
                     team.score = 252
                     otherTeam.score = 0
-                    team.declarations.add(Declaration.capot)
-                    otherTeam.declarations.remove(Declaration.capot)
+                    team.declarations.add(Declaration.Capot)
+                    otherTeam.declarations.remove(Declaration.Capot)
                 }
-                Declaration.belote -> {
-                    team.declarations.add(Declaration.belote)
-                    otherTeam.declarations.remove(Declaration.belote)
+                Declaration.Belote -> {
+                    team.declarations.add(Declaration.Belote)
+                    otherTeam.declarations.remove(Declaration.Belote)
                 }
                 else -> {
                     team.declarations.add(declaration)
                     otherTeam.declarations.removeAll(
                         listOf(
-                            Declaration.tierce,
-                            Declaration.quarte,
-                            Declaration.quinte,
-                            Declaration.square,
-                            Declaration.carre_of_nine,
-                            Declaration.carre_of_jacks
+                            Declaration.Tierce,
+                            Declaration.Quarte,
+                            Declaration.Quinte,
+                            Declaration.Square,
+                            Declaration.CarreOfNine,
+                            Declaration.CarreOfJacks
                         )
                     )
                 }

@@ -5,6 +5,4 @@ import com.petitpre.easybelote.model.GameRepository
 class HistoryViewModel(
     val gameRepository: GameRepository,
     gameId: Long
-) : AbstractGameViewModel(gameRepository, gameId) {
-
-}
+) : AbstractGameViewModel(gameRepository, gameId)

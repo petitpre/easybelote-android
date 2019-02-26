@@ -32,31 +32,31 @@ class HistoryFragment : Fragment() {
         val historyViewModel: HistoryViewModel = ViewModelProviders
             .of(
                 this,
-                ViewModelFactory({
+                ViewModelFactory{
                     HistoryViewModel(
                         requireContext().easyBelote.gameRepository,
                         gameId
                     )
-                })
+                }
             )
             .get(HistoryViewModel::class.java)
 
-        val myScoreAdapter = ScoreListAdapter({ round ->
+        val myScoreAdapter = ScoreListAdapter{ round ->
             val direction =
                 HistoryFragmentDirections.actionHistoryFragmentToScoreFragment(round.gameId).setRoundId(round.id)
             findNavController().navigate(direction)
-        })
-        val opponentScoreAdapter = ScoreListAdapter({ round ->
+        }
+        val opponentScoreAdapter = ScoreListAdapter{ round ->
             val direction =
                 HistoryFragmentDirections.actionHistoryFragmentToScoreFragment(round.gameId).setRoundId(round.id)
             findNavController().navigate(direction)
-        })
+        }
 
         val binding = DataBindingUtil.inflate<FragmentHistoryBinding>(
             inflater, R.layout.fragment_history, container, false
         ).apply {
             viewModel = historyViewModel
-            setLifecycleOwner(viewLifecycleOwner)
+            lifecycleOwner= viewLifecycleOwner
 
             this.myScoreList.adapter = myScoreAdapter
             this.opponentScoreList.adapter = opponentScoreAdapter
@@ -77,7 +77,7 @@ class HistoryFragment : Fragment() {
 }
 
 
-class ScoreListAdapter(val clickHandler: (Round) -> Unit) :
+class ScoreListAdapter(private val clickHandler: (Round) -> Unit) :
     ListAdapter<Pair<Round, TeamScore>, ScoreListAdapter.ViewHolder>(TeamScoreDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

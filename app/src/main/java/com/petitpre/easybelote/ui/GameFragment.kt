@@ -25,7 +25,7 @@ class GameFragment : Fragment() {
         val playingViewModel: GameViewModel = ViewModelProviders
             .of(
                 this,
-                ViewModelFactory({ GameViewModel(requireContext().easyBelote.gameRepository, gameId) })
+                ViewModelFactory { GameViewModel(requireContext().easyBelote.gameRepository, gameId) }
             )
             .get(GameViewModel::class.java)
 
@@ -33,7 +33,7 @@ class GameFragment : Fragment() {
             inflater, R.layout.fragment_game, container, false
         ).apply {
             viewModel = playingViewModel
-            setLifecycleOwner(viewLifecycleOwner)
+            lifecycleOwner = viewLifecycleOwner
 
             close.setOnClickListener {
                 it.findNavController().navigateUp()

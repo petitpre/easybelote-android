@@ -50,10 +50,10 @@
         <action
                 android:id="@+id/action_playing_fragment_to_historyFragment"
                 app:destination="@id/historyFragment"
-                app:enterAnim="@animator/slide_in_bottom"
-                app:exitAnim="@animator/slide_out_bottom"
-                app:popEnterAnim="@animator/slide_in_bottom"
-                app:popExitAnim="@animator/slide_out_bottom"/>
+                app:enterAnim="@animator/fade_in"
+                app:exitAnim="@animator/fade_out"
+                app:popEnterAnim="@animator/fade_in"
+                app:popExitAnim="@animator/fade_out"/>
     </fragment>
 
 
@@ -80,7 +80,11 @@
                 app:argType="long"/>
         <action
                 android:id="@+id/action_historyFragment_to_scoreFragment"
-                app:destination="@id/scoreFragment"/>
+                app:destination="@id/scoreFragment"
+                app:enterAnim="@animator/fade_in"
+                app:exitAnim="@animator/fade_out"
+                app:popEnterAnim="@animator/fade_in"
+                app:popExitAnim="@animator/fade_out"/>
     </fragment>
 
 </navigation>

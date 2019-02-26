@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.petitpre.easybelote.utils.Converters
 
-@Database(entities = arrayOf(Game::class, Round::class), version = 1, exportSchema = false)
+@Database(entities = [Game::class, Round::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun gameDao(): GameDao

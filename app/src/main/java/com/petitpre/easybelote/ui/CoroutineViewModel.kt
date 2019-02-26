@@ -1,7 +1,6 @@
 package com.petitpre.easybelote.ui
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.petitpre.easybelote.model.GameRepository
@@ -12,10 +11,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.runBlocking
 
 
-abstract class CoroutineViewModel(
-) : ViewModel() {
+abstract class CoroutineViewModel : ViewModel() {
 
-    val viewModelJob = Job()
+   private val viewModelJob = Job()
     val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     override fun onCleared() {

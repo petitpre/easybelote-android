@@ -16,9 +16,9 @@ class GameViewModel(
     val otherScore: LiveData<Long>
 
     init {
-        bidder = Transformations.map(gameWithRound, { it.game.bidder })
-        myScore = Transformations.map(gameWithRound, { it.getMyScore() })
-        otherScore = Transformations.map(gameWithRound, { it.getOtherScore() })
+        bidder = Transformations.map(gameWithRound) { it.game.bidder }
+        myScore = Transformations.map(gameWithRound) { it.getMyScore() }
+        otherScore = Transformations.map(gameWithRound) { it.getOtherScore() }
     }
 
     fun takeNext() = viewModelScope.launch {
