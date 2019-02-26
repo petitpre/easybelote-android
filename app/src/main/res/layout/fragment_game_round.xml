@@ -5,17 +5,19 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="com.petitpre.easybelote.model.Declaration"/>
+
         <variable
                 name="viewModel"
-                type="com.petitpre.easybelote.ui.ScoreViewModel"/>
+                type="com.petitpre.easybelote.ui.GameRoundViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.ScoreFragment">
+            tools:context=".ui.GameRoundFragment">
 
         <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/close"
@@ -33,24 +35,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:isSelected="@{viewModel.bidder == 0 || viewModel.bidder == 2}"
-                android:text='@{viewModel.game.game.team1.player1 +  " + " +  viewModel.game.game.team1.player2}'
+                android:text='@{viewModel.gameWithRound.game.team1.player1 +  " + " +  viewModel.gameWithRound.game.team1.player2}'
                 tools:text="vous + tom"
                 android:textAllCaps="true"
-
+                android:onClickListener="@{() -> viewModel.setBidder(0)}"
                 android:layout_marginTop="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/close"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:id="@+id/appCompatTextView2"/>
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 app:isVisible="@{viewModel.bidder == 0 || viewModel.bidder == 2}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/check" android:alpha="0"
-                app:layout_constraintStart_toEndOf="@+id/appCompatTextView2" android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="@+id/appCompatTextView2" android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/my_score" android:id="@+id/imageView2"/>
+                android:src="@drawable/check"
+                android:alpha="0"
+                app:layout_constraintStart_toEndOf="@+id/appCompatTextView2"
+                android:layout_marginStart="8dp"
+                app:layout_constraintTop_toTopOf="@+id/appCompatTextView2"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/my_score"
+                android:id="@+id/imageView2"/>
 
         <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/my_score"
@@ -61,13 +67,13 @@
                 android:inputType="number"
                 android:gravity="center"
                 tools:text="100"
-                android:text="@{viewModel.myScoreRound}"
+                android:text="@{viewModel.team1Score}"
+                android:onTextChanged="@{(txt,start,before,count) -> viewModel.setTeamScore(true,txt.toString() )}"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-
-        />
+                />
 
         <com.google.android.material.chip.ChipGroup
                 android:id="@+id/my_declarations"
@@ -85,25 +91,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:isSelected="@{viewModel.bidder == 1 || viewModel.bidder == 3}"
-                android:text='@{viewModel.game.game.team2.player1 +  " + " +  viewModel.game.game.team2.player2}'
+                android:text='@{viewModel.gameWithRound.game.team2.player1 +  " + " +  viewModel.gameWithRound.game.team2.player2}'
                 tools:text="jb + noemie"
                 android:textAllCaps="true"
-
+                android:onClickListener="@{() -> viewModel.setBidder(1)}"
                 android:layout_marginTop="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:id="@+id/appCompatTextView3"
                 app:layout_constraintTop_toBottomOf="@+id/my_declarations"/>
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 app:isVisible="@{viewModel.bidder == 1 || viewModel.bidder == 3}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/check" android:alpha="0"
+                android:src="@drawable/check"
+                android:alpha="0"
                 app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView3"
                 app:layout_constraintTop_toTopOf="@+id/appCompatTextView3"
                 app:layout_constraintStart_toEndOf="@+id/appCompatTextView3"
-                android:layout_marginStart="8dp" android:id="@+id/imageView"/>
+                android:layout_marginStart="8dp"
+                android:id="@+id/imageView"/>
 
         <androidx.appcompat.widget.AppCompatEditText
                 android:layout_width="wrap_content"
@@ -113,9 +121,9 @@
                 android:maxLines="1"
                 android:inputType="number"
                 tools:text="52"
-                android:text="@{viewModel.otherScoreRound}"
+                android:text="@{viewModel.team2Score}"
+                android:onTextChanged="@{(txt,start,before,count) -> viewModel.setTeamScore(false,txt.toString() )}"
                 android:layout_marginTop="8dp"
-
                 app:layout_constraintTop_toBottomOf="@+id/appCompatTextView3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

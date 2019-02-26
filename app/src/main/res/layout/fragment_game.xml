@@ -7,12 +7,12 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.petitpre.easybelote.ui.PlayingViewModel"/>
+                type="com.petitpre.easybelote.ui.GameViewModel"/>
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            tools:context=".ui.PlayingFragment"
+            tools:context=".ui.GameFragment"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -91,7 +91,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
 
                 android:layout_marginTop="65dp"
-                android:text="@{viewModel.game.game.team1.player2}"
+                android:text="@{viewModel.gameWithRound.game.team1.player2}"
                 tools:text="Tom" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -114,7 +114,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/player_three"
 
-                android:text="@{viewModel.game.game.team2.player1}"
+                android:text="@{viewModel.gameWithRound.game.team2.player1}"
                 tools:text="JB" app:layout_constraintHorizontal_bias="0.4"/>
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -138,7 +138,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/player_three"
 
-                android:text="@{viewModel.game.game.team2.player2}"
+                android:text="@{viewModel.gameWithRound.game.team2.player2}"
 
                 tools:text="noemie"
                 app:layout_constraintHorizontal_bias="0.6"/>
@@ -164,7 +164,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/player_three"
 
                 android:layout_marginTop="120dp"
-                android:text="@{viewModel.game.game.team1.player1}"
+                android:text="@{viewModel.gameWithRound.game.team1.player1}"
 
                 tools:text="vous"/>
 
@@ -193,7 +193,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/score_one"
                 app:layout_constraintVertical_bias="0.88"
                 app:isSelected="@{viewModel.bidder == 0 || viewModel.bidder == 2}"
-                android:text='@{viewModel.game.game.team1.player1 +  " + " +  viewModel.game.game.team1.player2}'
+                android:text='@{viewModel.gameWithRound.game.team1.player1 +  " + " +  viewModel.gameWithRound.game.team1.player2}'
                 tools:text="vous + tom"/>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -220,7 +220,7 @@
                 app:layout_constraintVertical_bias="0.88"
 
                 app:isSelected="@{viewModel.bidder == 1 || viewModel.bidder == 3}"
-                android:text='@{viewModel.game.game.team2.player1 +  " + " +  viewModel.game.game.team2.player2}'
+                android:text='@{viewModel.gameWithRound.game.team2.player1 +  " + " +  viewModel.gameWithRound.game.team2.player2}'
                 tools:text="simon + noemie"/>
 
         <androidx.appcompat.widget.AppCompatTextView

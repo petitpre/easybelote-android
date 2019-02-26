@@ -1,15 +1,11 @@
 package com.petitpre.easybelote.ui
 
 import android.content.res.Resources
-import androidx.lifecycle.*
-import androidx.navigation.NavController
+import androidx.lifecycle.MutableLiveData
 import com.petitpre.easybelote.R
 import com.petitpre.easybelote.model.Game
 import com.petitpre.easybelote.model.GameRepository
 import com.petitpre.easybelote.model.Team
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class NewGameViewModel(

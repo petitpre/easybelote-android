@@ -1,12 +1,8 @@
 package com.petitpre.easybelote
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import com.petitpre.easybelote.ui.StartFragment
 
 class MainActivity : AppCompatActivity() {
 

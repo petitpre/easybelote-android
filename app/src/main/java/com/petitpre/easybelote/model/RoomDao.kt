@@ -23,4 +23,8 @@ interface GameDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(round: Round)
+
+    @Query("SELECT * FROM Round where id = :id")
+    fun getRoundById(id: Long): Round?
+
 }

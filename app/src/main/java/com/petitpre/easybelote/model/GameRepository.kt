@@ -14,4 +14,7 @@ class GameRepository(private val gameDao: GameDao) {
     suspend fun addRound(  round: Round) = withContext(Dispatchers.IO) {
         gameDao.insert(round)
     }
+
+    suspend fun getRound(id: Long) = withContext(Dispatchers.IO) { gameDao.getRoundById(id) }
+
 }

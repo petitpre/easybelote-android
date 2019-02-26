@@ -1,24 +1,25 @@
 package com.petitpre.easybelote.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-
 import com.petitpre.easybelote.R
 import com.petitpre.easybelote.databinding.FragmentHistoryBinding
 import com.petitpre.easybelote.databinding.ItemRoundBinding
 import com.petitpre.easybelote.easyBelote
 import com.petitpre.easybelote.model.Round
+import com.petitpre.easybelote.model.TeamScore
 
 class HistoryFragment : Fragment() {
 
@@ -26,7 +27,7 @@ class HistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val gameId = navArgs<PlayingFragmentArgs>().value.gameId
+        val gameId = navArgs<HistoryFragmentArgs>().value.gameId
 
         val historyViewModel: HistoryViewModel = ViewModelProviders
             .of(
@@ -40,8 +41,16 @@ class HistoryFragment : Fragment() {
             )
             .get(HistoryViewModel::class.java)
 
-        val myScoreAdapter = ScoreListAdapter(true)
-        val opponentScoreAdapter = ScoreListAdapter(false)
+        val myScoreAdapter = ScoreListAdapter({ round ->
+            val direction =
+                HistoryFragmentDirections.actionHistoryFragmentToScoreFragment(round.gameId).setRoundId(round.id)
+            findNavController().navigate(direction)
+        })
+        val opponentScoreAdapter = ScoreListAdapter({ round ->
+            val direction =
+                HistoryFragmentDirections.actionHistoryFragmentToScoreFragment(round.gameId).setRoundId(round.id)
+            findNavController().navigate(direction)
+        })
 
         val binding = DataBindingUtil.inflate<FragmentHistoryBinding>(
             inflater, R.layout.fragment_history, container, false
@@ -57,9 +66,9 @@ class HistoryFragment : Fragment() {
             }
         }
 
-        historyViewModel.game.observe(viewLifecycleOwner, Observer { game ->
-            myScoreAdapter.submitList(game.rounds)
-            opponentScoreAdapter.submitList(game.rounds)
+        historyViewModel.gameWithRound.observe(viewLifecycleOwner, Observer { game ->
+            myScoreAdapter.submitList(game.rounds.map { Pair(it, it.team1) })
+            opponentScoreAdapter.submitList(game.rounds.map { Pair(it, it.team2) })
         })
 
         return binding.root
@@ -68,12 +77,13 @@ class HistoryFragment : Fragment() {
 }
 
 
-class ScoreListAdapter(val myScore: Boolean) : ListAdapter<Round, ScoreListAdapter.ViewHolder>(RoundDiffCallback()) {
+class ScoreListAdapter(val clickHandler: (Round) -> Unit) :
+    ListAdapter<Pair<Round, TeamScore>, ScoreListAdapter.ViewHolder>(TeamScoreDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val round = getItem(position)
+        val score = getItem(position)
         holder.apply {
-            bind(if (myScore) round.team1.score else round.team2.score)
+            bind(score)
         }
     }
 
@@ -81,30 +91,35 @@ class ScoreListAdapter(val myScore: Boolean) : ListAdapter<Round, ScoreListAdapt
         return ViewHolder(
             ItemRoundBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
-            )
+            ),
+            clickHandler
         )
     }
 
     class ViewHolder(
-        private val binding: ItemRoundBinding
+        private val binding: ItemRoundBinding,
+        private val clickHandler: (Round) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(score: Long) {
+        fun bind(entry: Pair<Round, TeamScore>) {
             binding.apply {
-                this.score = score
+                this.score = entry.second.totalScore
                 executePendingBindings()
+                item.setOnClickListener {
+                    clickHandler(entry.first)
+                }
             }
         }
     }
 }
 
-private class RoundDiffCallback : DiffUtil.ItemCallback<Round>() {
+private class TeamScoreDiffCallback : DiffUtil.ItemCallback<Pair<Round, TeamScore>>() {
 
-    override fun areItemsTheSame(oldItem: Round, newItem: Round): Boolean {
-        return oldItem.id == newItem.id
+    override fun areItemsTheSame(oldItem: Pair<Round, TeamScore>, newItem: Pair<Round, TeamScore>): Boolean {
+        return oldItem.first.id == newItem.first.id
     }
 
-    override fun areContentsTheSame(oldItem: Round, newItem: Round): Boolean {
+    override fun areContentsTheSame(oldItem: Pair<Round, TeamScore>, newItem: Pair<Round, TeamScore>): Boolean {
         return oldItem == newItem
     }
 }

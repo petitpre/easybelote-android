@@ -2,37 +2,41 @@ package com.petitpre.easybelote.ui
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.chip.Chip
-
-import com.petitpre.easybelote.databinding.FragmentScoreBinding
-import com.petitpre.easybelote.easyBelote
 import com.petitpre.easybelote.R
+import com.petitpre.easybelote.databinding.FragmentGameRoundBinding
+import com.petitpre.easybelote.easyBelote
 import com.petitpre.easybelote.model.Declaration
 
-class ScoreFragment : Fragment() {
+class GameRoundFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val gameId = navArgs<ScoreFragmentArgs>().value.gameId
+        val args = navArgs<GameRoundFragmentArgs>().value
+        val gameId = args.gameId
+        val roundId = args.roundId
 
-        val playingViewModel: ScoreViewModel = ViewModelProviders
-            .of(this, ViewModelFactory({ ScoreViewModel(requireContext().easyBelote.gameRepository, gameId) }))
-            .get(ScoreViewModel::class.java)
+        val playingViewModel: GameRoundViewModel = ViewModelProviders
+            .of(
+                this,
+                ViewModelFactory({ GameRoundViewModel(requireContext().easyBelote.gameRepository, gameId, roundId) })
+            )
+            .get(GameRoundViewModel::class.java)
 
-        val binding = DataBindingUtil.inflate<FragmentScoreBinding>(
-            inflater, R.layout.fragment_score, container, false
+        val binding = DataBindingUtil.inflate<FragmentGameRoundBinding>(
+            inflater, R.layout.fragment_game_round, container, false
         ).apply {
             viewModel = playingViewModel
             setLifecycleOwner(viewLifecycleOwner)
@@ -41,30 +45,29 @@ class ScoreFragment : Fragment() {
                 it.findNavController().navigateUp()
             }
             validate.setOnClickListener {
-                playingViewModel.updateScores(it.findNavController())
+                playingViewModel.updateScores { it.findNavController().navigateUp() }
             }
 
-            Declaration.values().forEach { declaration ->
-                val chip = (inflater.inflate(R.layout.declaration, myDeclarations, false) as Chip).apply {
-                    this.setText(declaration.text)
-
-                    this.setOnCheckedChangeListener { buttonView, isChecked ->
-                        playingViewModel.addDeclaration(true, declaration)
-                    }
-                }
-                myDeclarations.addView(chip)
-
-                val otherchip = (inflater.inflate(R.layout.declaration, otherDeclarations, false) as Chip).apply {
+            fun createTag(parent: ViewGroup, declaration: Declaration, myTeam: Boolean) {
+                val chip = (inflater.inflate(R.layout.declaration, parent, false) as Chip).apply {
                     this.setText(declaration.text)
                     this.tag = declaration
                     this.setOnCheckedChangeListener { buttonView, isChecked ->
-                        playingViewModel.addDeclaration(false, declaration)
+                        if (isChecked)
+                            playingViewModel.addDeclaration(myTeam, declaration)
+                        else
+                            playingViewModel.removeDeclaration(myTeam, declaration)
                     }
                 }
-                otherDeclarations.addView(otherchip)
+                parent.addView(chip)
             }
 
-            playingViewModel.newround.observe(viewLifecycleOwner, Observer { round ->
+            Declaration.values().forEach { declaration ->
+                createTag(myDeclarations, declaration, true)
+                createTag(otherDeclarations, declaration, false)
+            }
+
+            playingViewModel.round.observe(viewLifecycleOwner, Observer { round ->
                 myDeclarations.children.forEach { view ->
                     if (view is Chip) {
                         view.isChecked = round.team1.declarations.contains(view.tag)
@@ -76,8 +79,6 @@ class ScoreFragment : Fragment() {
                     }
                 }
             })
-
-
         }
         return binding.root
     }

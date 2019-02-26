@@ -7,8 +7,8 @@
 
     <fragment
             android:id="@+id/start_fragment"
-            android:name="com.petitpre.easybelote.ui.StartFragment"
-            tools:layout="@layout/fragment_start">
+            android:name="com.petitpre.easybelote.ui.HomeFragment"
+            tools:layout="@layout/fragment_home">
 
         <action
                 android:id="@+id/action_start_game"
@@ -24,9 +24,9 @@
             android:id="@+id/newgame_fragment"
             android:name="com.petitpre.easybelote.ui.NewGameFragment"
             tools:layout="@layout/fragment_new_game">
-        <action android:id="@+id/action_newgame_fragment_to_playing_fragment"
+        <action
+                android:id="@+id/action_newgame_fragment_to_playing_fragment"
                 app:destination="@id/playing_fragment"
-
                 app:enterAnim="@animator/fade_in"
                 app:exitAnim="@animator/fade_out"
                 app:popEnterAnim="@animator/fade_in"
@@ -35,30 +35,52 @@
 
     <fragment
             android:id="@+id/playing_fragment"
-            android:name="com.petitpre.easybelote.ui.PlayingFragment"
-            tools:layout="@layout/fragment_playing">
-        <argument android:name="gameId"
-                  app:argType="long"/>
-        <action android:id="@+id/action_playing_fragment_to_scoreFragment" app:destination="@id/scoreFragment"
-                app:enterAnim="@animator/fade_in" app:exitAnim="@animator/fade_out"
-                app:popEnterAnim="@animator/fade_in" app:popExitAnim="@animator/fade_out"/>
-        <action android:id="@+id/action_playing_fragment_to_historyFragment" app:destination="@id/historyFragment"
-                app:enterAnim="@animator/slide_in_bottom" app:exitAnim="@animator/slide_out_bottom"
-                app:popEnterAnim="@animator/slide_in_bottom" app:popExitAnim="@animator/slide_out_bottom"/>
+            android:name="com.petitpre.easybelote.ui.GameFragment"
+            tools:layout="@layout/fragment_game">
+        <argument
+                android:name="gameId"
+                app:argType="long"/>
+        <action
+                android:id="@+id/action_playing_fragment_to_scoreFragment"
+                app:destination="@id/scoreFragment"
+                app:enterAnim="@animator/fade_in"
+                app:exitAnim="@animator/fade_out"
+                app:popEnterAnim="@animator/fade_in"
+                app:popExitAnim="@animator/fade_out"/>
+        <action
+                android:id="@+id/action_playing_fragment_to_historyFragment"
+                app:destination="@id/historyFragment"
+                app:enterAnim="@animator/slide_in_bottom"
+                app:exitAnim="@animator/slide_out_bottom"
+                app:popEnterAnim="@animator/slide_in_bottom"
+                app:popExitAnim="@animator/slide_out_bottom"/>
     </fragment>
 
 
-    <fragment android:id="@+id/scoreFragment"
-              android:name="com.petitpre.easybelote.ui.ScoreFragment"
-              tools:layout="@layout/fragment_score">
-        <argument android:name="gameId"
-                  app:argType="long"/>
+    <fragment
+            android:id="@+id/scoreFragment"
+            android:name="com.petitpre.easybelote.ui.GameRoundFragment"
+            tools:layout="@layout/fragment_game_round">
+        <argument
+                android:name="gameId"
+                app:argType="long"/>
+        <argument
+                android:name="roundId"
+                android:defaultValue="0L"
+                app:argType="long"/>
     </fragment>
 
-    <fragment android:id="@+id/historyFragment" android:name="com.petitpre.easybelote.ui.HistoryFragment"
-              android:label="HistoryFragment" tools:layout="@layout/fragment_history">
-        <argument android:name="gameId"
-                  app:argType="long"/>
+    <fragment
+            android:id="@+id/historyFragment"
+            android:name="com.petitpre.easybelote.ui.HistoryFragment"
+            android:label="HistoryFragment"
+            tools:layout="@layout/fragment_history">
+        <argument
+                android:name="gameId"
+                app:argType="long"/>
+        <action
+                android:id="@+id/action_historyFragment_to_scoreFragment"
+                app:destination="@id/scoreFragment"/>
     </fragment>
 
 </navigation>

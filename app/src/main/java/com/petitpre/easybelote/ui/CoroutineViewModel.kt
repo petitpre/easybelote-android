@@ -1,10 +1,15 @@
 package com.petitpre.easybelote.ui
 
-import androidx.lifecycle.*
-import com.petitpre.easybelote.model.Game
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.petitpre.easybelote.model.GameRepository
 import com.petitpre.easybelote.model.GameWithRound
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.runBlocking
 
 
 abstract class CoroutineViewModel(
@@ -30,26 +35,16 @@ class ViewModelFactory<T : ViewModel>(
     }
 }
 
-abstract class GameViewModel(
+abstract class AbstractGameViewModel(
     private val gameRepository: GameRepository,
     private val gameId: Long
 ) : CoroutineViewModel() {
 
-    val game: LiveData<GameWithRound>
-
-    val bidder: LiveData<Int>
-    val myScore: LiveData<Long>
-    val otherScore: LiveData<Long>
-
+    val gameWithRound: LiveData<GameWithRound>
 
     init {
-        game = runBlocking {
+        gameWithRound = runBlocking {
             gameRepository.getGame(gameId)
         }
-
-        bidder = Transformations.map(game, { it.game.bidder })
-
-        myScore = Transformations.map(game, { it.getMyScore() })
-        otherScore = Transformations.map(game, { it.getOtherScore() })
     }
 }

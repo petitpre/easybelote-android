@@ -2,36 +2,35 @@ package com.petitpre.easybelote.ui
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
-
 import com.petitpre.easybelote.R
-import com.petitpre.easybelote.databinding.FragmentPlayingBinding
+import com.petitpre.easybelote.databinding.FragmentGameBinding
 import com.petitpre.easybelote.easyBelote
 
-class PlayingFragment : Fragment() {
+class GameFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val gameId = navArgs<PlayingFragmentArgs>().value.gameId
+        val gameId = navArgs<GameFragmentArgs>().value.gameId
 
-        val playingViewModel: PlayingViewModel = ViewModelProviders
+        val playingViewModel: GameViewModel = ViewModelProviders
             .of(
                 this,
-                ViewModelFactory({ PlayingViewModel(requireContext().easyBelote.gameRepository, gameId) })
+                ViewModelFactory({ GameViewModel(requireContext().easyBelote.gameRepository, gameId) })
             )
-            .get(PlayingViewModel::class.java)
+            .get(GameViewModel::class.java)
 
-        val binding = DataBindingUtil.inflate<FragmentPlayingBinding>(
-            inflater, R.layout.fragment_playing, container, false
+        val binding = DataBindingUtil.inflate<FragmentGameBinding>(
+            inflater, R.layout.fragment_game, container, false
         ).apply {
             viewModel = playingViewModel
             setLifecycleOwner(viewLifecycleOwner)
@@ -40,17 +39,14 @@ class PlayingFragment : Fragment() {
                 it.findNavController().navigateUp()
             }
             playground.setOnClickListener {
-                val direction = PlayingFragmentDirections.actionPlayingFragmentToScoreFragment(gameId)
+                val direction = GameFragmentDirections.actionPlayingFragmentToScoreFragment(gameId)
                 it.findNavController().navigate(direction)
             }
             history.setOnClickListener {
-                val direction = PlayingFragmentDirections.actionPlayingFragmentToHistoryFragment(gameId)
+                val direction = GameFragmentDirections.actionPlayingFragmentToHistoryFragment(gameId)
                 it.findNavController().navigate(direction)
             }
         }
-
         return binding.root
     }
-
-
 }
