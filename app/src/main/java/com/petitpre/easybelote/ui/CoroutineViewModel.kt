@@ -42,7 +42,7 @@ abstract class AbstractGameViewModel(
 
     init {
         gameWithRound = runBlocking {
-            gameRepository.getGame(gameId)
+            gameRepository.getFullGame(gameId)
         }
     }
 }

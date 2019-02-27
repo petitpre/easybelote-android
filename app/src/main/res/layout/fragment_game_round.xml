@@ -34,8 +34,8 @@
         <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:isSelected="@{viewModel.bidder == 0 || viewModel.bidder == 2}"
-                android:text='@{viewModel.gameWithRound.game.team1.player1 +  " + " +  viewModel.gameWithRound.game.team1.player2}'
+                app:isSelected="@{viewModel.round.team1.bidding}"
+                android:text='@{viewModel.gameWithRound.game.team1.toString()}'
                 tools:text="vous + tom"
                 android:textAllCaps="true"
                 android:onClickListener="@{() -> viewModel.setBidder(0)}"
@@ -46,7 +46,7 @@
                 android:id="@+id/appCompatTextView2"/>
 
         <androidx.appcompat.widget.AppCompatImageView
-                app:isVisible="@{viewModel.bidder == 0 || viewModel.bidder == 2}"
+                app:isVisible="@{viewModel.round.team1.bidding}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/check"
@@ -68,7 +68,6 @@
                 android:gravity="center"
                 tools:text="100"
                 android:text="@{viewModel.team1Score}"
-                android:onTextChanged="@{(txt,start,before,count) -> viewModel.setTeamScore(true,txt.toString() )}"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -90,8 +89,8 @@
         <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:isSelected="@{viewModel.bidder == 1 || viewModel.bidder == 3}"
-                android:text='@{viewModel.gameWithRound.game.team2.player1 +  " + " +  viewModel.gameWithRound.game.team2.player2}'
+                app:isSelected="@{viewModel.round.team2.bidding}"
+                android:text='@{viewModel.gameWithRound.game.team2.toString()}'
                 tools:text="jb + noemie"
                 android:textAllCaps="true"
                 android:onClickListener="@{() -> viewModel.setBidder(1)}"
@@ -102,7 +101,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/my_declarations"/>
 
         <androidx.appcompat.widget.AppCompatImageView
-                app:isVisible="@{viewModel.bidder == 1 || viewModel.bidder == 3}"
+                app:isVisible="@{viewModel.round.team2.bidding}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/check"
@@ -116,18 +115,19 @@
         <androidx.appcompat.widget.AppCompatEditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/otherScore"
                 android:ems="5"
                 android:gravity="center"
                 android:maxLines="1"
                 android:inputType="number"
                 tools:text="52"
                 android:text="@{viewModel.team2Score}"
-                android:onTextChanged="@{(txt,start,before,count) -> viewModel.setTeamScore(false,txt.toString() )}"
+
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/appCompatTextView3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:id="@+id/appCompatEditText2"/>
+              />
 
         <com.google.android.material.chip.ChipGroup
                 android:id="@+id/other_declarations"
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/appCompatEditText2"
+                app:layout_constraintTop_toBottomOf="@+id/otherScore"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,6 +18,8 @@ import com.petitpre.easybelote.R
 import com.petitpre.easybelote.databinding.FragmentGameRoundBinding
 import com.petitpre.easybelote.easyBelote
 import com.petitpre.easybelote.model.Declaration
+import android.view.inputmethod.EditorInfo
+
 
 class GameRoundFragment : Fragment() {
 
@@ -31,7 +34,7 @@ class GameRoundFragment : Fragment() {
         val playingViewModel: GameRoundViewModel = ViewModelProviders
             .of(
                 this,
-                ViewModelFactory{ GameRoundViewModel(requireContext().easyBelote.gameRepository, gameId, roundId) }
+                ViewModelFactory { GameRoundViewModel(requireContext().easyBelote.gameRepository, gameId, roundId) }
             )
             .get(GameRoundViewModel::class.java)
 
@@ -48,6 +51,25 @@ class GameRoundFragment : Fragment() {
                 playingViewModel.updateScores { it.findNavController().navigateUp() }
             }
 
+            myScore.setOnEditorActionListener({ v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_DONE
+                    || actionId == EditorInfo.IME_ACTION_SEND
+                    || actionId == EditorInfo.IME_ACTION_NEXT
+                ) {
+                    playingViewModel.setTeamScore(true, v.text.toString())
+                }
+                false
+            })
+            otherScore.setOnEditorActionListener({ v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_DONE
+                    || actionId == EditorInfo.IME_ACTION_SEND
+                    || actionId == EditorInfo.IME_ACTION_NEXT
+                ) {
+                    playingViewModel.setTeamScore(false, v.text.toString())
+                }
+                false
+            })
+
             fun createTag(parent: ViewGroup, declaration: Declaration, myTeam: Boolean) {
                 val chip = (inflater.inflate(R.layout.declaration, parent, false) as Chip).apply {
                     this.setText(declaration.text)
@@ -62,10 +84,23 @@ class GameRoundFragment : Fragment() {
                 parent.addView(chip)
             }
 
-            Declaration.values().forEach { declaration ->
-                createTag(myDeclarations, declaration, true)
-                createTag(otherDeclarations, declaration, false)
+            Declaration.values().forEach {
+                createTag(myDeclarations, it, true)
+                createTag(otherDeclarations, it, false)
             }
+
+            playingViewModel.gameWithRound.observe(viewLifecycleOwner, Observer {
+                myDeclarations.children.forEach { view ->
+                    if (view is Chip && view.tag != Declaration.Capot && view.tag != Declaration.Belote) {
+                        view.isVisible = it.game.declarations
+                    }
+                }
+                otherDeclarations.children.forEach { view ->
+                    if (view is Chip && view.tag != Declaration.Capot && view.tag != Declaration.Belote) {
+                        view.isVisible = it.game.declarations
+                    }
+                }
+            })
 
             playingViewModel.round.observe(viewLifecycleOwner, Observer { round ->
                 myDeclarations.children.forEach { view ->

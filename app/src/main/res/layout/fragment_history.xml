@@ -18,7 +18,7 @@
             android:background="@drawable/game_background">
 
         <androidx.appcompat.widget.AppCompatImageButton
-                android:src="@drawable/close"
+                android:src="@drawable/stripe_down"
                 android:tint="@color/black"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -42,8 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-
-                android:text='@{viewModel.gameWithRound.game.team1.player1 +  " + " +  viewModel.gameWithRound.game.team1.player2}'
+                android:text='@{viewModel.gameWithRound.game.team1.toString()}'
                 tools:text="vous + tom" android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/close"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
@@ -68,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text='@{viewModel.gameWithRound.game.team2.player1 +  " + " +  viewModel.gameWithRound.game.team2.player2}'
+                android:text='@{viewModel.gameWithRound.game.team2.toString()}'
                 tools:text="vous + tom" android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/close"
                 app:layout_constraintStart_toStartOf="@+id/guideline"

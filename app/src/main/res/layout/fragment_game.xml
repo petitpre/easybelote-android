@@ -169,7 +169,7 @@
                 tools:text="vous"/>
 
         <androidx.appcompat.widget.AppCompatImageButton
-                android:src="@drawable/close"
+                android:src="@drawable/stripe_up"
                 android:tint="@color/black"
                 android:paddingBottom="120dp"
                 android:layout_width="0dp"
@@ -206,8 +206,9 @@
 
                 android:layout_marginBottom="32dp"
                 android:text="@{viewModel.myScore.toString()}"
-                tools:text="513"
-                app:layout_constraintStart_toStartOf="@+id/group_one"/>
+                tools:text="1"
+                app:layout_constraintStart_toStartOf="@+id/group_one"
+                app:layout_constraintEnd_toEndOf="@+id/group_one"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/group_two"
@@ -234,7 +235,8 @@
                 tools:text="675"
                 android:layout_marginBottom="32dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/group_two"/>
+                app:layout_constraintStart_toStartOf="@+id/group_two"
+                app:layout_constraintEnd_toEndOf="@+id/group_two"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

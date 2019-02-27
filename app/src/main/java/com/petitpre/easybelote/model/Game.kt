@@ -27,15 +27,17 @@ data class Game(
 data class Team(
     val player1: String? = null,
     val player2: String? = null
-)
+) {
+    override fun toString(): String {
+        return "$player1 + $player2"
+    }
+}
 
 @Entity
 data class Round(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
     val gameId: Long,
-
-    var bidder: Int = 0,
 
     @Embedded(prefix = "team_one_")
     var team1: TeamScore = TeamScore(),
@@ -47,6 +49,7 @@ data class Round(
 
 data class TeamScore(
     var score: Long = 0,
+    var bidding: Boolean = false,
     var declarations: MutableSet<Declaration> = mutableSetOf()
 ) {
     val totalScore: Long

@@ -6,6 +6,7 @@ import androidx.lifecycle.Transformations
 import com.petitpre.easybelote.model.Declaration
 import com.petitpre.easybelote.model.GameRepository
 import com.petitpre.easybelote.model.Round
+import com.petitpre.easybelote.model.TeamScore
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
@@ -17,33 +18,47 @@ class GameRoundViewModel(
 ) : AbstractGameViewModel(gameRepository, gameId) {
 
     val round: MutableLiveData<Round>
-    val bidder: LiveData<Int>
     val team1Score: LiveData<String>
     val team2Score: LiveData<String>
 
     init {
         round = MutableLiveData(runBlocking {
+            val game = gameRepository.getGame(gameId)
             gameRepository.getRound(roundId)
                 ?: Round(
                     gameId = gameId,
-                    bidder = gameWithRound.value?.game?.bidder ?: 0
+                    team1 = TeamScore(
+                        score = 0, bidding = game.bidder == 0
+                                || game.bidder == 2
+                    ),
+                    team2 = TeamScore(
+                        score = 0, bidding = game.bidder == 1
+                                || game.bidder == 3
+                    )
                 )
         })
 
-        bidder = Transformations.map(round) { it.bidder }
         team1Score = Transformations.map(round) { it.team1.score.toString() }
         team2Score = Transformations.map(round) { it.team2.score.toString() }
     }
 
     fun setTeamScore(team1: Boolean, scoreStr: String) {
         try {
-            round.value?.let {
-                val scoreLong = scoreStr.toLong()
-                if (team1) {
-                    it.team1.score = scoreLong
+            round.update { round ->
+                val biddingScore = if (team1 && round.team1.bidding) scoreStr.toLong() else 162 - scoreStr.toLong()
+                val biddingTeam = if (round.team1.bidding) round.team1 else round.team2
+                val otherTeam = if (round.team1.bidding) round.team2 else round.team1
+
+                if (biddingScore > 81) {
+                    biddingTeam.score = biddingScore
+                    otherTeam.score = 162 - biddingScore
                 } else {
-                    it.team2.score = scoreLong
+                    biddingTeam.score = 0
+                    otherTeam.score = 162
                 }
+
+                biddingTeam.declarations.remove(Declaration.Capot)
+                otherTeam.declarations.remove(Declaration.Capot)
             }
         } catch (ex: Exception) {
             Timber.d(ex)
@@ -92,7 +107,8 @@ class GameRoundViewModel(
 
     fun setBidder(bidder: Int) = viewModelScope.launch {
         round.update { r ->
-            r.bidder = bidder
+            r.team1.bidding = bidder == 0
+            r.team2.bidding = bidder == 1
         }
     }
 
