@@ -3,5 +3,5 @@
     <item android:drawable="@color/white"/>
     <item android:drawable="@drawable/background" android:gravity="bottom"/>
     <item android:drawable="@drawable/card" android:gravity="center"/>
-    <item android:drawable="@drawable/easy_belote" android:gravity="center"/>
+    <item android:drawable="@drawable/easy_belote" android:gravity="center" android:bottom="20dp"/>
 </layer-list>

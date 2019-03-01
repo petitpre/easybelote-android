@@ -42,7 +42,7 @@
                 app:argType="long"/>
         <action
                 android:id="@+id/action_playing_fragment_to_scoreFragment"
-                app:destination="@id/scoreFragment"
+                app:destination="@id/gameRoundFragment"
                 app:enterAnim="@animator/fade_in"
                 app:exitAnim="@animator/fade_out"
                 app:popEnterAnim="@animator/fade_in"
@@ -58,7 +58,7 @@
 
 
     <fragment
-            android:id="@+id/scoreFragment"
+            android:id="@+id/gameRoundFragment"
             android:name="com.petitpre.easybelote.ui.GameRoundFragment"
             tools:layout="@layout/fragment_game_round">
         <argument
@@ -68,6 +68,10 @@
                 android:name="roundId"
                 android:defaultValue="0L"
                 app:argType="long"/>
+        <argument
+                android:name="bidding"
+                android:defaultValue="0"
+                app:argType="integer"/>
     </fragment>
 
     <fragment
@@ -80,7 +84,7 @@
                 app:argType="long"/>
         <action
                 android:id="@+id/action_historyFragment_to_scoreFragment"
-                app:destination="@id/scoreFragment"
+                app:destination="@id/gameRoundFragment"
                 app:enterAnim="@animator/fade_in"
                 app:exitAnim="@animator/fade_out"
                 app:popEnterAnim="@animator/fade_in"

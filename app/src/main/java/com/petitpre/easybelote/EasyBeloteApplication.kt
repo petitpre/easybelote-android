@@ -12,7 +12,9 @@ class EasyBeloteApplication : Application() {
         Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "easy-belote"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     val gameRepository: GameRepository by lazy { GameRepository(database.gameDao()) }

@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.petitpre.easybelote.R
 import com.petitpre.easybelote.databinding.FragmentGameBinding
@@ -36,15 +37,22 @@ class GameFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
 
             close.setOnClickListener {
-                it.findNavController().navigateUp()
+                findNavController().navigateUp()
+            }
+            listOf<View>(playerOne, playerTwo, playerThree, playerFour).forEachIndexed { index, view ->
+                view.setOnClickListener {
+                    val direction = GameFragmentDirections.actionPlayingFragmentToScoreFragment(gameId)
+                    direction.bidding = index
+                    findNavController().navigate(direction)
+                }
             }
             playground.setOnClickListener {
                 val direction = GameFragmentDirections.actionPlayingFragmentToScoreFragment(gameId)
-                it.findNavController().navigate(direction)
+                findNavController().navigate(direction)
             }
             history.setOnClickListener {
                 val direction = GameFragmentDirections.actionPlayingFragmentToHistoryFragment(gameId)
-                it.findNavController().navigate(direction)
+                findNavController().navigate(direction)
             }
         }
         return binding.root

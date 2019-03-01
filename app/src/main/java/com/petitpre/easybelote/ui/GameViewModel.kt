@@ -10,20 +10,20 @@ class GameViewModel(
     gameId: Long
 ) : AbstractGameViewModel(gameRepository, gameId) {
 
-    val bidder: LiveData<Int>
+    val dealer: LiveData<Int>
 
     val myScore: LiveData<Long>
     val otherScore: LiveData<Long>
 
     init {
-        bidder = Transformations.map(gameWithRound) { it.game.bidder }
+        dealer = Transformations.map(gameWithRound) { it.game.dealer }
         myScore = Transformations.map(gameWithRound) { it.getMyScore() }
         otherScore = Transformations.map(gameWithRound) { it.getOtherScore() }
     }
 
     fun takeNext() = viewModelScope.launch {
         gameWithRound.value?.let { gameWithRound ->
-            gameWithRound.game.bidder = (gameWithRound.game.bidder + 1) % 4
+            gameWithRound.game.dealer = (gameWithRound.game.dealer + 1) % 4
             gameRepository.saveGame(gameWithRound.game)
         }
     }

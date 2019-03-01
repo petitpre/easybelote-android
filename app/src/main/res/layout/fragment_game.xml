@@ -75,7 +75,7 @@
                 android:alpha="0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:isVisible="@{viewModel.bidder == 2}"
+                app:isVisible="@{viewModel.dealer == 2}"
                 app:layout_constraintBottom_toTopOf="@+id/player_three"
                 app:layout_constraintEnd_toEndOf="@+id/player_three"
                 app:layout_constraintStart_toStartOf="@+id/player_three"/>
@@ -85,30 +85,35 @@
                 style="@style/PlayerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:minHeight="40dp"
+                android:minWidth="40dp"
+                android:gravity="center"
                 app:layout_constraintTop_toBottomOf="@+id/appCompatEditText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
 
-                android:layout_marginTop="65dp"
+                android:layout_marginTop="55dp"
                 android:text="@{viewModel.gameWithRound.game.team1.player2}"
-                tools:text="Tom" />
+                tools:text="Tom"/>
 
         <androidx.appcompat.widget.AppCompatImageView
                 android:src="@drawable/selected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0"
-                app:isVisible="@{viewModel.bidder == 1}"
+                app:isVisible="@{viewModel.dealer == 1}"
                 app:layout_constraintBottom_toTopOf="@+id/player_two"
                 app:layout_constraintEnd_toEndOf="@+id/player_two"
                 app:layout_constraintStart_toStartOf="@+id/player_two"/>
+
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/player_two"
                 style="@style/PlayerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:minHeight="40dp"
+                android:minWidth="40dp"
+                android:gravity="center"
                 app:layout_constraintBottom_toTopOf="@+id/player_one"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
@@ -122,7 +127,7 @@
                 android:alpha="0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:isVisible="@{viewModel.bidder == 3}"
+                app:isVisible="@{viewModel.dealer == 3}"
                 app:layout_constraintBottom_toTopOf="@+id/player_four"
                 app:layout_constraintEnd_toEndOf="@+id/player_four"
                 app:layout_constraintStart_toStartOf="@+id/player_four"/>
@@ -132,7 +137,9 @@
                 style="@style/PlayerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:minHeight="40dp"
+                android:minWidth="40dp"
+                android:gravity="center"
                 app:layout_constraintBottom_toTopOf="@+id/player_one"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -148,7 +155,7 @@
                 android:alpha="0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:isVisible="@{viewModel.bidder == 0}"
+                app:isVisible="@{viewModel.dealer == 0}"
                 app:layout_constraintBottom_toTopOf="@+id/player_one"
                 app:layout_constraintEnd_toEndOf="@+id/player_one"
                 app:layout_constraintStart_toStartOf="@+id/player_one"/>
@@ -158,12 +165,14 @@
                 style="@style/PlayerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:minHeight="40dp"
+                android:minWidth="40dp"
+                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/player_three"
 
-                android:layout_marginTop="120dp"
+                android:layout_marginTop="100dp"
                 android:text="@{viewModel.gameWithRound.game.team1.player1}"
 
                 tools:text="vous"/>
@@ -192,7 +201,7 @@
                 app:layout_constraintTop_toTopOf="@+id/history"
                 app:layout_constraintBottom_toTopOf="@+id/score_one"
                 app:layout_constraintVertical_bias="0.88"
-                app:isSelected="@{viewModel.bidder == 0 || viewModel.bidder == 2}"
+                app:isSelected="@{viewModel.dealer == 0 || viewModel.dealer == 2}"
                 android:text='@{viewModel.gameWithRound.game.team1.player1 +  " + " +  viewModel.gameWithRound.game.team1.player2}'
                 tools:text="vous + tom"/>
 
@@ -201,7 +210,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="41sp"
-                app:isSelected="@{viewModel.bidder == 0 || viewModel.bidder == 2}"
+                app:isSelected="@{viewModel.dealer == 0 || viewModel.dealer == 2}"
                 app:layout_constraintBottom_toBottomOf="parent"
 
                 android:layout_marginBottom="32dp"
@@ -220,7 +229,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/score_two"
                 app:layout_constraintVertical_bias="0.88"
 
-                app:isSelected="@{viewModel.bidder == 1 || viewModel.bidder == 3}"
+                app:isSelected="@{viewModel.dealer == 1 || viewModel.dealer == 3}"
                 android:text='@{viewModel.gameWithRound.game.team2.player1 +  " + " +  viewModel.gameWithRound.game.team2.player2}'
                 tools:text="simon + noemie"/>
 
@@ -229,7 +238,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                app:isSelected="@{viewModel.bidder == 1 || viewModel.bidder == 3}"
+                app:isSelected="@{viewModel.dealer == 1 || viewModel.dealer == 3}"
                 android:text="@{viewModel.otherScore.toString()}"
                 android:textSize="41sp"
                 tools:text="675"

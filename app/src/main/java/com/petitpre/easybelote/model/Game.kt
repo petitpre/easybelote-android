@@ -21,7 +21,7 @@ data class Game(
     val max_score: Int = 1001,
     val declarations: Boolean = false,
 
-    var bidder: Int = 0
+    var dealer: Int = 0
 )
 
 data class Team(
